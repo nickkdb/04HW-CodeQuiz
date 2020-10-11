@@ -1,13 +1,38 @@
 var questions = [
   {
-    question: "Commonly used data types DO NOT include:",
-    choices: ["strings", "booleans", "alerts", "numbers"],
-    answer: "alerts",
+      question: "Commonly used data types DO NOT include:",
+      choices: ["strings", "booleans", "alerts", "numbers"],
+      answer: "alerts",
   },
   {
-    question: "The condition in an if / else statement is enclosed within ____.",
-    choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
-    answer: "parentheses",
+      question: "The condition in an if / else statement is enclosed within ____.",
+      choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
+      answer: "parentheses",
+  },
+  {
+      question: "What tag do you put your javascript in within an HTML page?",
+      choices: ["<script>", "<javascript>", "<java>", "<js>"],
+      answer: "<script>",
+  },
+  {
+      question: "What is the proper way to call a function in javascript?",
+      choices: ["call.exampleFunction", "exampleFunction();", "function exampleFunction", "exampleFunction(call);"],
+      answer: "exampleFunction();",
+  },
+  {
+      question: "Select the choice that resembles a standard for loop.",
+      choices: ["for (i < 10) {...", "for [i === true; i++]", "for (i++, exampleFunction())", "for (i = 0; i < 10; i++)"],
+      answer: "for (i = 0; i < 10; i++)",
+  },
+  {
+      question: "What do you find inside an Array?",
+      choices: ["a list of multiple values of all variabele types", "functions", "a list of numerical values", "multiple loops within eachother"],
+      answer: "a list of multiple values of all variabele types",
+  },
+  {
+      question: "How do you declare a variable in JavaScript?",
+      choices: ["new var = exampleVariable;", "var String = exampleVariable", "var exampleVariable;", "var.exampleVariable;"],
+      answer: "var exampleVariable;",
   },
 ];
 
@@ -139,12 +164,12 @@ function checkAnswer(event) {
     if (target.matches("li")) {
         var selected= event.target.textContent;
       if (selected == questions[questionIndex].answer) {
-        correctCount++;
+        correctCount += 4;
         questionResultEl.textContent = "correct";
       } else {
-        correctCount--;
+        correctCount -= 1;
         questionResultEl.textContent = "Wrong";
-        timeLeft -= 2;
+        timeLeft -= 8;
       }  
     }
     
@@ -161,7 +186,7 @@ function startQuiz() {
   heading.style.display = 'block';
   instructions.style.display = 'block';
   heading.textContent= "Welcome to the Coding Quiz!!";
-  instructions.innerHTML= "You will have 75 seconds to complete this quiz. If you answer a question wrong,<br> 2 seconds will be subtracted from your \ntotal time. On completion, your score will<br> be recorded to the leaderboard. Press start to begin!";
+  instructions.innerHTML= "You will have 75 seconds to complete this quiz. If you answer a question wrong,<br> 8 seconds will be subtracted from your \ntotal time. On completion, your score will<br> be recorded to the leaderboard. Press start to begin!";
 
   startbtn.addEventListener("click", function(){
     renderQuestion();

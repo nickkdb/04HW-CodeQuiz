@@ -30,6 +30,8 @@ var timeLeft= 76;
 var intervalId;
 timerEl.textContent= "Time Remaining: "
 
+var allUsers = new Array();
+
 
 
 
@@ -38,42 +40,46 @@ function endQuiz() {
   clearInterval(intervalId);
   document.body.innerHTML = "<h1> Game Over </h1>";
 
-  setTimeout(showHighScore, 2000)
+  setTimeout(function() {
+    name = prompt("What is your name?");
 
+    var user = {
+      name: name,
+      score: correctCount
+    }
+
+    allUsers= localStorage.getItem("allUsers");
+
+    if (!allUsers) {
+      allUsers = []
+    } else {
+      allUsers = JSON.parse(allUsers)
+    }
+
+    allUsers.push(user);
+    allUsers.sort(function(a, b){
+       return b.score - a.score;
+    });
+
+    localStorage.setItem("allUsers", JSON.stringify(allUsers));
+
+    showHighScore();
+  }, 2000);
 }
 
 function showHighScore() {
-  var name = prompt("What is your Name?");
+ var allUsersEl = JSON.parse(localStorage.getItem("allUsers"));
 
-  var user = {
-    name: name,
-    score: correctCount
-  }
+ var contentOl= document.createElement("ol");
 
-  var high_score= localStorage.getItem("scores");
+ for (var i=0; i < allUsersEl.length; i++) {
+   var contentLi= document.createElement("li");
+   contentLi.textContent = "Name: " + allUsersEl[i].name + " - " + allUsersEl[i].score + " points";
+   contentOl.append(contentLi);
+ }
 
-  if (!high_score) {
-    high_score= []
-  } else {
-    high_score = JSON.parse(high_score)
-  }
+ document.body.append(contentOl);
 
-  high_score.push(user);
-
-  high_score.sort(function(a, b){
-    return b.score - a.score;
-  })
-
-  var contentUl = document.createElement("ul");
-
-  for (var i= 0; i<high_score.length; i++) {
-
-    var contentLi= document.createElement("li");
-    contentLi.textContent= "Name: " + high_score[i].name + " Score: " + high_score[i].score;
-    contentUl.append(contentLi);
-  }
-
-  document.body.append(contentUl);
 } 
 
 function updateTime() {

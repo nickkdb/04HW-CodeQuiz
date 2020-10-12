@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High Score Page</title>
+
+    <link rel="stylesheet" href="scorestyle.css">
+</head>
+<body>
+    
+    <h1>High Scores:</h1>
+
+    <div id= "work"></div>
+
+    <button id= "return">Go Back</button>
+
+    <button id="clear">Clear Scores</button>
+
+
+    <script>
+var work= document.getElementById("work");
+var clear= document.getElementById("clear");
+var goback= document.getElementById("return");
+
+
+function showHighScore() {
+    var allUsersEl = JSON.parse(localStorage.getItem("allUsers"));
+    console.log(allUsersEl);
+
+    var contentUl = document.createElement("ol");
+
+  for (var i= 0; i<allUsersEl.length; i++) {
+
+    var contentLi= document.createElement("li");
+    contentLi.textContent= "Name: " + allUsersEl[i].name + " Score: " + allUsersEl[i].score;
+    contentUl.append(contentLi);
+  }
+
+  work.append(contentUl);
+}
+
+goback.addEventListener("click", function(){
+    location.href = "index.html";
+});
+
+clear.addEventListener("click", function(){
+localStorage.clear();
+alert("Refresh the page for high scores to clear");
+});
+
+showHighScore();
+    </script>
+</body>
+</html>
